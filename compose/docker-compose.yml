@@ -1,0 +1,28 @@
+version: '3.8'
+
+services:
+  sql-backup:
+    image: ${DOCKER_REGISTRY-}sql-backup:${DOCKER_TAG-latest}
+    init: true
+    restart: unless-stopped
+    environment:
+      REMOTE_BACKUP_DIR: "${REMOTE_BACKUP_DIR:?Setting REMOTE_BACKUP_DIR is required}"
+      LOCAL_BACKUP_DIR: "/root/sql/${LOCAL_BACKUP_DIR:?Setting LOCAL_BACKUP_DIR is required}"
+      DB_ADDRESS: "${DB_ADDRESS:?Setting DB_ADDRESS is required}"
+      SA_PASSWORD: "${DB_PASSWORD:?Setting DB_PASSWORD is required}"
+      DB_NAME: "${DB_NAME:?Setting DB_NAME is required}"
+      ROOT_FOLDER_ID: "${DRIVE_FOLDER_ID:?Setting DRIVE_FOLDER_ID is required}"
+    volumes:
+      - "sqldata:/root/sql"
+    networks:
+      - sqlnetwork
+
+volumes:
+  sqldata:
+    external: true
+    name: "${DOCKER_VOLUME:?Setting DOCKER_VOLUME is required}"
+
+networks:
+  sqlnetwork:
+    external: true
+    name: "${DOCKER_NETWORK:?Setting DOCKER_NETWORK is required}"

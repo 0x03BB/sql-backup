@@ -1,0 +1,4 @@
+SHELL=/bin/bash
+BASH_ENV=/root/cron.env
+05 0 * * * root /root/backup_database.sh
+30 * * * * root /root/backup_log.sh
