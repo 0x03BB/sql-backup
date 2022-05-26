@@ -30,22 +30,14 @@ RUN \
   rm -rf /var/lib/apt/lists/*
 
 # Copy backup scripts, crontab, and rclone configuration.
-COPY entrypoint.sh /root/entrypoint.sh
-COPY backup_database.sh /root/backup_database.sh
-COPY backup_log.sh /root/backup_log.sh
-COPY backup_tail_log.sh /root/backup_tail_log.sh
-COPY restore.sh /root/restore.sh
-COPY sqlbackup /etc/cron.d/sqlbackup
+COPY --chmod=744 entrypoint.sh /root/entrypoint.sh
+COPY --chmod=744 backup_database.sh /root/backup_database.sh
+COPY --chmod=744 backup_log.sh /root/backup_log.sh
+COPY --chmod=744 backup_tail_log.sh /root/backup_tail_log.sh
+COPY --chmod=744 restore.sh /root/restore.sh
+COPY --chmod=644 sqlbackup /etc/cron.d/sqlbackup
 COPY rclone.conf /root/.config/rclone/rclone.conf
 COPY drive_key.json /root/drive_key.json
-
-RUN \
-  chmod 744 /root/entrypoint.sh && \
-  chmod 744 /root/backup_database.sh && \
-  chmod 744 /root/backup_log.sh && \
-  chmod 744 /root/backup_tail_log.sh && \
-  chmod 744 /root/restore.sh && \
-  chmod 644 /etc/cron.d/sqlbackup
 
 # Setup the cron environment and rclone configuration, run the initial database backup, if needed, then run cron in the foreground.
 ENTRYPOINT ["/root/entrypoint.sh"]
