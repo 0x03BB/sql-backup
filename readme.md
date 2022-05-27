@@ -5,27 +5,14 @@ This Docker image will backup a chosen Dockerized Microsoft SQL Server database 
 Steps for use:
 
 1. Provide a Google service account private key
-2. Build the image
-3. Configure the `.env` file
-4. Run on a Docker server
+2. Configure the `.env` file
+3. Run on a Docker server
 
 ## 1. Service account private key
 
 The private key file for a Google service account needs to be placed in the `build` directory with the file name `drive_key.json`. See the section under ‘Other Notes’ for more details about the service account.
 
-## 2. Building
-
-Run `build-push.ps1`. The address of a Docker registry must be provided via the `-Registry` argument. An image tag may also be supplied via `-Tag`. If a tag is not provided, 'latest' will be used. Adding `-NoCache` will build without cache so all of the build layers get rebuilt.
-
-Examples:
-
-```powershell
-build-push.ps1 -Registry my.server:5000
-or
-build-push.ps1 -Registry my.server:5000 -Tag 1.0 -NoCache
-```
-
-## 3. Configuring
+## 2. Configuring
 
 Configuration settings are specified in a file named `.env`. The provided `.env` file in the `compose` directory can be used as a template.
 
@@ -55,9 +42,9 @@ The address of your Docker registry, from the perspective of the Docker server t
 - DOCKER_TAG
 The tag to use when retrieving this program's image from the registry. If a tag is not provided, 'latest' will be used.
 
-## 4. Running
+## 3. Running
 
-Make a directory on your Docker server for this program. A good location would be the user's home directory, and a good name would be something that reflects which database this program will back up, e.g. `~/myprogramsqlbackup/`. Copy the `docker-compose.yml` and `.env` files to this directory. Finally, run `docker-compose up -d` from within the directory.
+Make a directory on your Docker server for this program. A good location would be the user's home directory, and a good name would be something that reflects which database this program will back up, e.g. `~/myprogramsqlbackup/`. Copy the `docker-compose.yml` and `.env` files and the entire `build` directory to this directory. Finally, run `docker-compose up -d` from within the directory. If you need to use a different `drive_key.json`, you must rebuild the image by running `docker-compose build` after replacing the file.
 
 ## Other Notes
 
