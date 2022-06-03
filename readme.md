@@ -18,28 +18,28 @@ Configuration settings are specified in a file named `.env`. The provided `.env`
 
 ### Required settings
 
-- DOCKER_VOLUME
+- DOCKER_VOLUME  
 The name of a Docker volume attached to SQL Server. This will be used to persist the backup files. You can use the same volume that is used to persist SQL Server's data. You can view the volumes that a container is attached to by running `docker container inspect <containerName>` and looking in the `"Mounts"` section.
-- REMOTE_BACKUP_DIR
+- REMOTE_BACKUP_DIR  
 The absolute path to a directory on the above volume where the backups will be saved. A trailing `/` **must** be included. If using the same volume that SQL Server uses for its data, as described above, the path must be within that volume's mount point. For default SQL Server settings, that is `/var/opt/mssql/`, so a good location would be, e.g. `/var/opt/mssql/backup/`.
-- LOCAL_BACKUP_DIR
+- LOCAL_BACKUP_DIR  
 The relative path inside the above volume where the backups are stored. A trailing `/` **must** be included. In the above example with the volume mounted at `/var/opt/mssql/` and the backups stored at `/var/opt/mssql/backup/`, this would be `backup/`.
-- DOCKER_NETWORK
+- DOCKER_NETWORK  
 The name of a Docker network that SQL Server is connected to. You can view the networks that a container is connected to by running `docker container inspect <containerName>` and looking in the `"NetworkSettings": { "Networks" }` section.
-- DB_ADDRESS
+- DB_ADDRESS  
 The address of SQL Server on the above network. This can be viewed in the same section as above under `"Aliases"`.
-- DB_PASSWORD
+- DB_PASSWORD  
 The password of the SA account of SQL Server.
-- DB_NAME
+- DB_NAME  
 The name of the database to be backed up.
-- DRIVE_FOLDER_ID
+- DRIVE_FOLDER_ID  
 The Google Drive folder ID of a folder that is shared with the chosen service account with edit permission. See <https://rclone.org/drive/#root-folder-id> for instructions on how to find a folder's ID. This is required because otherwise rclone will save the files in the Google Drive of the service account, instead of a user account, and these files are not easily accessible. See the section under 'Other Notes' for more details about the service account.
 
 ### Optional settings
 
-- DOCKER_REGISTRY
+- DOCKER_REGISTRY  
 The address of your Docker registry, from the perspective of the Docker server that the program will run on, e.g. `localhost:5000/`. If set, a trailing `/` **must** be included. If omitted, the local Docker Desktop registry is used, if present, otherwise, Docker Hub.
-- DOCKER_TAG
+- DOCKER_TAG  
 The tag to use when retrieving this program's image from the registry. If a tag is not provided, 'latest' will be used.
 
 ## 3. Running
