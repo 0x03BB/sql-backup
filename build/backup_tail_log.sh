@@ -3,7 +3,7 @@ DATE=$(date -I)
 TIME=$(date -Iseconds)
 # Replace ':' with '-' for use in file name.
 TIME=${TIME//:/-}
-FILE_NAME=${DATE}/tail_log${TIME}.bak
+FILE_NAME=${DATE}/tail_log-${TIME}.bak
 
 { # Redirect output to init so it shows up in the docker log.
 	# Backup the tail log.

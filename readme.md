@@ -1,6 +1,6 @@
 # SQL Backup
 
-This Docker image will backup a chosen Dockerized Microsoft SQL Server database and copy the backup files to Google Drive using rclone. It must be run on the same machine as the SQL Server that is to be backed up. A full database backup will be done once a day at 00:05 UTC. A log backup will be done once an hour, 30 minutes past the hour. The files will be saved in subdirectories named for the current date in ISO 8601 format, e.g. `2000-12-31`. The files will be named `database<time>.bak`, `log<time>.bak`, or `tail-log<time>.bak` for database, log, and tail log backups, respectively. `<time>` is the full ISO 8601 date and time with colons replaced by hyphens for file name compatibility, e.g. `database2000-12-31T00-05-01+00-00.bak`.
+This Docker image will backup a chosen Dockerized Microsoft SQL Server database and copy the backup files to Google Drive using rclone. It must be run on the same machine as the SQL Server that is to be backed up. A full database backup will be done once a day at 00:05 UTC. A log backup will be done once an hour, 30 minutes past the hour. The files will be saved in subdirectories named for the current date in ISO 8601 format, e.g. `2000-12-31`. The files will be named `database-<time>.bak`, `log-<time>.bak`, or `tail-log-<time>.bak` for database, log, and tail log backups, respectively. `<time>` is the full ISO 8601 date and time with colons replaced by hyphens for file name compatibility, e.g. `database-2000-12-31T00-05-01+00-00.bak`.
 
 Steps for use:
 
@@ -14,7 +14,7 @@ The private key file for a Google service account needs to be placed in the `bui
 
 ## 2. Configuring
 
-Configuration settings are specified in a file named `.env`. The provided `.env` file in the `compose` directory can be used as a template.
+Configuration settings are specified in a file named `.env`. The provided `.env` file can be used as a template.
 
 ### Required settings
 
@@ -44,7 +44,7 @@ The tag to use when retrieving this program's image from the registry. If a tag 
 
 ## 3. Running
 
-Make a directory on your Docker server for this program. A good location would be the user's home directory, and a good name would be something that reflects which database this program will back up, e.g. `~/myprogramsqlbackup/`. Copy the `docker-compose.yml` and `.env` files and the entire `build` directory to this directory. Finally, run `docker-compose up -d` from within the directory. If you need to use a different `drive_key.json`, you must rebuild the image by running `docker-compose build` after replacing the file.
+Make a directory on your Docker server for this program. A good location would be the user's home directory, and a good name would be something that reflects which database this program will back up, e.g. `~/myprogram-sql-backup/`. Copy the `docker-compose.yml` and `.env` files and the entire `build` directory to this directory. Finally, run `docker-compose up -d` from within the directory. If you need to use a different `drive_key.json`, you must rebuild the image by running `docker-compose build` after replacing the file.
 
 ## Other Notes
 

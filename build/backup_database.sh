@@ -3,7 +3,7 @@ DATE=$(date -I)
 TIME=$(date -Iseconds)
 # Replace ':' with '-' for use in file name.
 TIME=${TIME//:/-}
-FILE_NAME=${DATE}/database${TIME}.bak
+FILE_NAME=${DATE}/database-${TIME}.bak
 
 # Check for -f flag to force backup.
 while getopts f option; do
