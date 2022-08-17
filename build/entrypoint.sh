@@ -13,6 +13,7 @@ echo "Entrypoint: SQL Server connection successful." > /proc/1/fd/1
 declare -p | grep -E 'PATH|LOCAL_BACKUP_DIR|REMOTE_BACKUP_DIR|DB_ADDRESS|SA_PASSWORD|DB_NAME' > /root/cron.env
 
 # Add the root folder id to the rclone configuration.
+cp /root/rclone.conf /root/.config/rclone/rclone.conf
 echo "root_folder_id = ${ROOT_FOLDER_ID}" >> /root/.config/rclone/rclone.conf
 
 # Run the initial database backup, if needed.
