@@ -31,6 +31,7 @@ RUN \
 
 # Copy backup scripts, crontab, and rclone configuration.
 COPY --chmod=744 entrypoint.sh /root/entrypoint.sh
+COPY --chmod=744 shared.sh /root/shared.sh
 COPY --chmod=744 backup_database.sh /root/backup_database.sh
 COPY --chmod=744 backup_log.sh /root/backup_log.sh
 COPY --chmod=744 backup_tail_log.sh /root/backup_tail_log.sh
