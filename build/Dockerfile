@@ -1,4 +1,4 @@
-FROM ubuntu:focal
+FROM ubuntu:jammy
 
 # Accept mssql-tools EULA.
 ENV ACCEPT_EULA=Y
@@ -12,19 +12,19 @@ RUN \
   apt-get install -y \
   gnupg \
   ca-certificates && \
+  rm -rf /var/lib/apt/lists/* && \
   apt-key add /root/microsoft.asc
 
 # Register the Microsoft Ubuntu repository.
-ADD https://packages.microsoft.com/config/ubuntu/20.04/prod.list /etc/apt/sources.list.d/msprod.list
+ADD https://packages.microsoft.com/config/ubuntu/22.04/prod.list /etc/apt/sources.list.d/msprod.list
 
-# Install remainder of packages. libgssapi-krb5-2, a dependency of msodbcsql17, needs to be installed explicitly for some reason.
+# Install remainder of packages.
 RUN \
   apt-get update && \
   apt-get -y upgrade && \
   apt-get install -y \
   mssql-tools \
   unixodbc-dev \
-  libgssapi-krb5-2 \
   rclone \
   cron && \
   rm -rf /var/lib/apt/lists/*
