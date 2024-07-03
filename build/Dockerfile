@@ -38,7 +38,6 @@ COPY --chmod=744 backup_tail_log.sh /root/backup_tail_log.sh
 COPY --chmod=744 restore.sh /root/restore.sh
 COPY --chmod=644 sqlbackup /etc/cron.d/sqlbackup
 COPY rclone.conf /root/rclone.conf
-COPY drive_key.json /root/drive_key.json
 RUN mkdir -p /root/.config/rclone
 
 # Setup the cron environment and rclone configuration, run the initial database backup, if needed, then run cron in the foreground.

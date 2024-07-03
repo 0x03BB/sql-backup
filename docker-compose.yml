@@ -17,6 +17,9 @@ services:
       - "sqldata:/root/sql"
     networks:
       - sqlnetwork
+    secrets:
+      - source: drive-key
+        target: /root/drive_key.json
 
 volumes:
   sqldata:
@@ -27,3 +30,7 @@ networks:
   sqlnetwork:
     external: true
     name: "${DOCKER_NETWORK:?}"
+
+secrets:
+  drive-key:
+    file: ./secrets/drive_key.json
