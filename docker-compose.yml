@@ -1,8 +1,5 @@
-version: '3.8'
-
 services:
   sql-backup:
-    build: ./build
     image: ${DOCKER_REGISTRY}sql-backup:${DOCKER_TAG:-latest}
     init: true
     restart: unless-stopped

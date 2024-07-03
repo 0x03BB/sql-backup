@@ -4,17 +4,14 @@ This Docker image will backup a chosen Dockerized Microsoft SQL Server database 
 
 Steps for use:
 
-1. Provide a Google service account private key
-2. Configure the `.env` file
-3. Run on a Docker server
+1. Configure the `.env` files
+2. Build the Docker image
+3. Provide a Google service account private key
+4. Run on a Docker server
 
-## 1. Service account private key
+## 1. Configuring
 
-The private key file for a Google service account needs to be placed in the `build` directory with the file name `drive_key.json`. See the section under ‘Other Notes’ for more details about the service account.
-
-## 2. Configuring
-
-Configuration settings are specified in a file named `.env`. The provided `.env` file can be used as a template.
+Configuration settings are specified in two files, both named `.env`. The provided `.env` files can be used as a templates. The top-level `.env` file is used for running the image. The `.env` file in the `compose-build` directory is used for building the image.
 
 ### Required settings
 
@@ -42,9 +39,17 @@ The address of your Docker registry, from the perspective of the Docker server t
 - DOCKER_TAG  
 The tag to use when retrieving this program's image from the registry. If a tag is not provided, 'latest' will be used.
 
-## 3. Running
+## 2. Building
 
-Make a directory on your Docker server for this program. A good location would be the user's home directory, and a good name would be something that reflects which database this program will back up, e.g. `~/myprogram-sql-backup/`. Copy the `docker-compose.yml` and `.env` files and the entire `build` directory to this directory. Finally, run `docker-compose up -d` from within the directory. If you need to use a different `drive_key.json`, you must rebuild the image by running `docker-compose build` after replacing the file.
+From the `compose-build` directory, run `docker compose build`. If building on a different computer than the program will be run, make sure to also run `docker compose push`.
+
+## 3. Service account private key
+
+The private key file for a Google service account needs to be obtained and named `drive_key.json`. See the section under ‘Other Notes’ for more details about the service account.
+
+## 4. Running
+
+Make a directory on your Docker server for this program. A good location would be the user's home directory, and a good name would be something that reflects which database this program will back up, e.g. `~/myprogram-sql-backup/`. Copy the `docker-compose.yml` and `.env` files and the `secrets` directory to this directory. Copy the `drive_key.json` file from the previous step to the `secrets` directory. Finally, run `docker compose up -d` from within the directory.
 
 ## Other Notes
 

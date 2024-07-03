@@ -1,0 +1,4 @@
+services:
+  sql-backup:
+    build: ../build
+    image: ${DOCKER_REGISTRY}sql-backup:${DOCKER_TAG:-latest}
